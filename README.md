@@ -34,12 +34,57 @@ Hindi/Hinglish Input → Google Translate → English Text → Ensemble Classifi
 
 ## 📊 Dataset
 
-**Training Data**: [NLTK Twitter Samples](https://www.nltk.org/howto/twitter.html)
-- Labeled positive and negative tweets
-- 40,000 tweets used for training
-- 85/15 train-test split
+### Primary Dataset: Twitter Sentiment Data
 
-**Note**: Models are trained on English tweets only. Hindi/Hinglish support is achieved through translation preprocessing.
+**Source**: [NLTK Twitter Samples](https://www.nltk.org/howto/twitter.html)
+
+**Dataset Statistics**:
+- **Total Records**: 40,000 labeled tweets
+- **Class Distribution**: 
+  - Positive: 20,000 tweets
+  - Negative: 20,000 tweets (balanced dataset)
+- **Train/Test Split**: 85% training / 15% testing
+  - Training samples: ~34,000 tweets
+  - Testing samples: ~6,000 tweets
+
+**Data Characteristics**:
+- **Text Format**: Raw tweets with various formats and styles
+- **Languages**: English only
+- **Sentiment Labels**: Binary (0 = Negative, 4 = Positive)
+- **Text Features**: 
+  - Informal language (slang, abbreviations)
+  - Emojis and emoticons
+  - Mentions (@handles) and hashtags
+  - URLs and links
+  - Various grammar patterns (common in social media)
+
+### Working Dataset: test_data.csv
+
+**File**: `test_data.csv` (5.5 MB)
+
+**Columns**:
+- `number`: Tweet ID
+- `date`: Tweet timestamp
+- `name`: Tweet author
+- `no_query`: Query used to find tweet
+- `ï»¿Label`: Sentiment label (0 = negative, 4 = positive)
+- `Tweet`: Raw tweet text
+
+**Processing Applied**:
+1. **Sampling**: 500 positive + 500 negative tweets (1,000 total balanced subset)
+2. **Train-Test Split**: 85/15 split on sampled data
+   - Training: ~850 tweets
+   - Testing: ~150 tweets
+3. **Cleaning**: Removes duplicates and blank lines
+
+### Feature Engineering
+
+**Extracted Features**:
+- **Adjectives List**: 5,000 most frequent adjectives identified using `english-adjectives.txt`
+- **Word Features**: Frequency distribution of adjectives using NLTK's `FreqDist`
+- **Feature Vector**: Binary representation indicating presence/absence of adjectives
+
+**Note**: Models are trained on English tweets only. Hindi/Hinglish support is achieved through translation preprocessing using Google Translate API.
 
 ## 🔧 Installation
 
