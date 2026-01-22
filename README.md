@@ -261,16 +261,6 @@ Sentiment-Analysis/
 **Q: Why only English tweets?**
 - A: NLTK Twitter Sentiment Dataset provides a well-established, quality-controlled English dataset with 1.6M labeled tweets. Labeled Hinglish datasets don't exist at scale. Creating one manually would require months of work.
 
-**Q: The model is trained on English tweets but claims to be bilingual. How does that work?**
-- A: This is **purely a translation-based solution**, not a true bilingual model:
-  1. Hindi/Hinglish text comes in
-  2. It's translated to English word-by-word using Google Translate
-  3. The English translation is classified using the English sentiment model
-  4. Result is the sentiment of the translated text, NOT the original Hindi text
-  - **Key limitation**: Translation quality directly affects accuracy. If translation is poor, prediction is poor.
-  - **What this means**: The model only understands English sentiment. Hindi/Hinglish support is just preprocessing (translation). It's **not a bilingual model** - it's an **English model with a translation layer**.
-  - **Why we did this**: No labeled Hinglish sentiment dataset exists. Translation is a practical workaround.
-
 **Q: Isn't translation going to lose meaning and accuracy?**
 - A: Somewhat, yes. Translation quality varies, but:
   - Google Translate achieves 90%+ accuracy for Hindi-English translation
@@ -332,17 +322,6 @@ Sentiment-Analysis/
   - "not good" vs "is good" have different meanings
   - Removing "not" would lose negation information
   - "is" helps with emphasis detection
-
-### Defending Your Approach
-
-**If asked why this isn't "true" bilingual sentiment analysis:**
-> "This is English sentiment analysis with a bilingual interface. We acknowledge the limitations, but this translate-then-classify approach is established in cross-lingual NLP when labeled data is scarce. It's a practical solution that enables functionality across languages without months of manual data labeling."
-
-**If asked about low accuracy (54-59%):**
-> "Twitter sentiment analysis typically ranges 60-75% with state-of-the-art models. Our 54-59% is reasonable for an ensemble of traditional ML models with limited training data. This project prioritizes interpretability and demonstrates multiple algorithms over maximizing accuracy. For production use, we'd recommend LSTM/BERT deep learning models."
-
-**If asked why not use pre-trained models like BERT:**
-> "BERT achieves higher accuracy (75%+) but is more complex and requires more computational resources. This project focuses on understanding ML fundamentals through multiple algorithms. BERT is mentioned as future work when moving to production deployment."
 
 ### Using the Project
 
